@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+    <title>Particle Automization</title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <h1><a href="index.html" target="_blank" title="">PYTHON for EUV TRACK</a></h1>
+
+    <h2>
+        Code를 실행하고 알맞은 input값을 추가하면 inform 양식을 생성합니다.
+    </h2>
+    <p><pre>
+        def inform(unit, lot, pr, c_rcp, i_rcp, s_list, pre_list, post_list):
+            slot_count = len(s_list)
+            pre_count = len(pre_list)
+            post_count = len(post_list)
+            indv_slot = ""
+        <br>
+            if not (1 <= slot_count <= 25):<br>
+                return "slot 개수는 1~25의 정수여야 합니다."<br>
+        <br>
+            if (slot_count != pre_count or slot_count != post_count or pre_count != post_count):<br>
+                return "#slot, #pre, #post가 매칭되지 않습니다. 다시 확인해주세요."<br>
+        <br>
+            for i in range(0,slot_count):<br>
+                temp_1 = s_list[i]<br>
+                indv_slot += str(temp_1)+','<br>
+        <br>
+            indv_slot = indv_slot[:-1]<br>
+        <br>
+            info = f"{lot} #{indv_slot} (PR : {pr} / {c_rcp} / {i_rcp})\n"<br>
+        <br>
+            for i in range(slot_count):<br>
+                slot_num = s_list[i]<br>
+                pre = pre_list[i]<br>
+                post = post_list[i]<br>
+                if i % 4 == 0:<br>
+                    info += f"{unit} 11-01 #{slot_num} : {post-pre}ea ( {pre}ea → {post}ea )\n"<br>
+                elif i % 4 == 1:<br>
+                    info += f"{unit} 11-02 #{slot_num} : {post-pre}ea ( {pre}ea → {post}ea )\n"<br>
+                elif i % 4 == 2:<br>
+                    info += f"{unit} 12-01 #{slot_num} : {post-pre}ea ( {pre}ea → {post}ea )\n"<br>
+                elif i % 4 == 3:<br>
+                    info += f"{unit} 12-02 #{slot_num} : {post-pre}ea ( {pre}ea → {post}ea )\n\n"<br>
+        <br>
+            return info<br>
+    <br>
+        unit = input("module : ")<br>
+        lot = input("lot : ")<br>
+        pr = input("PR : ")<br>
+        c_rcp = input("COATING RCP : ")<br>
+        i_rcp = input("INSPECTION RCP : ")<br>
+        s_list = list(map(int, input("slot list : ").split(',')))<br>
+        pre_list = list(map(int, input("pre : ").split(',')))<br>
+        post_list = list(map(int, input("post : ").split(',')))<br>
+        <br>
+        result = inform(unit, lot, pr, c_rcp, i_rcp, s_list, pre_list, post_list)<br>
+        print(result)<br>
+    </pre></p>
+</body>
+</html>
